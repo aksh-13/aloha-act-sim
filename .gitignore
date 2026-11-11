@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Large or generated artefacts stay off GitHub
+checkpoints/
+outputs/
+wandb/
+*.safetensors
+*.mp4
