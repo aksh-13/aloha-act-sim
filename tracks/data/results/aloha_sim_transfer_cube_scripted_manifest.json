@@ -3,7 +3,7 @@
  "root": "datasets\\aloha_sim_transfer_cube_scripted",
  "task": "Pick up the cube with the right arm and transfer it to the left arm.",
  "kept": 50,
- "attempts": 52,
+ "attempts": 70,
  "seed_start": 100000,
  "cube_x_range": [
   0.0,
@@ -15,18 +15,48 @@
  ],
  "noise": true,
  "expert_params": {
-  "pos_noise": 0.004,
-  "time_noise": 4,
-  "meet_noise": 0.02,
-  "right_tilt": 60.0,
-  "left_roll": 90.0,
-  "meet_xyz": [
-   0.0,
-   0.5,
-   0.25
+  "pick_tilt": 58.0,
+  "grasp_dz": 0.017,
+  "meet_tilt_right": -13.0,
+  "meet_roll_right": 80.0,
+  "meet_tilt_left": -16.0,
+  "meet_roll_left": 14.0,
+  "meet_right": [
+   -0.004,
+   0.497,
+   0.288
   ],
-  "grasp_dz": 0.01,
-  "left_dx": -0.005,
+  "meet_left_dx": 0.006,
+  "meet_noise": [
+   0.014,
+   0.011,
+   0.011
+  ],
+  "grip_closed": [
+   0.2,
+   0.19
+  ],
+  "grip_open": [
+   1.03,
+   1.1
+  ],
+  "grip_noise": 0.03,
+  "t_right_open": 72,
+  "t_above": 118,
+  "t_down": 142,
+  "t_close": 156,
+  "t_lift": 185,
+  "t_meet": 262,
+  "t_left_near": 245,
+  "t_left_in": 286,
+  "t_left_close": 298,
+  "t_release": 322,
+  "t_away": 360,
+  "pick_shift_std": 22.0,
+  "handover_shift_std": 15.0,
+  "event_jitter": 4,
+  "pos_noise": 0.004,
+  "away_dz": 0.0,
   "gain": 0.15
  },
  "episodes": [
@@ -43,17 +73,6 @@
   },
   {
    "episode_index": 1,
-   "seed": 100001,
-   "cube_xy": [
-    0.1704,
-    0.5755
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 2,
    "seed": 100002,
    "cube_xy": [
     0.1888,
@@ -64,7 +83,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 3,
+   "episode_index": 2,
    "seed": 100003,
    "cube_xy": [
     0.0046,
@@ -75,7 +94,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 4,
+   "episode_index": 3,
    "seed": 100004,
    "cube_xy": [
     0.004,
@@ -86,7 +105,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 5,
+   "episode_index": 4,
    "seed": 100005,
    "cube_xy": [
     0.1006,
@@ -97,7 +116,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 6,
+   "episode_index": 5,
    "seed": 100006,
    "cube_xy": [
     0.1263,
@@ -108,18 +127,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 7,
-   "seed": 100007,
-   "cube_xy": [
-    0.0472,
-    0.586
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 8,
+   "episode_index": 6,
    "seed": 100008,
    "cube_xy": [
     0.1951,
@@ -130,7 +138,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 9,
+   "episode_index": 7,
    "seed": 100009,
    "cube_xy": [
     0.0965,
@@ -141,7 +149,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 10,
+   "episode_index": 8,
    "seed": 100010,
    "cube_xy": [
     0.1951,
@@ -152,7 +160,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 11,
+   "episode_index": 9,
    "seed": 100011,
    "cube_xy": [
     0.0208,
@@ -163,29 +171,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 12,
-   "seed": 100012,
-   "cube_xy": [
-    0.0503,
-    0.4007
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 13,
-   "seed": 100013,
-   "cube_xy": [
-    0.1894,
-    0.4539
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 14,
+   "episode_index": 10,
    "seed": 100014,
    "cube_xy": [
     0.0997,
@@ -196,18 +182,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 15,
-   "seed": 100015,
-   "cube_xy": [
-    0.0736,
-    0.5675
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 16,
+   "episode_index": 11,
    "seed": 100016,
    "cube_xy": [
     0.111,
@@ -218,7 +193,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 17,
+   "episode_index": 12,
    "seed": 100017,
    "cube_xy": [
     0.1199,
@@ -229,7 +204,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 18,
+   "episode_index": 13,
    "seed": 100018,
    "cube_xy": [
     0.036,
@@ -240,7 +215,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 19,
+   "episode_index": 14,
    "seed": 100019,
    "cube_xy": [
     0.0609,
@@ -251,7 +226,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 20,
+   "episode_index": 15,
    "seed": 100020,
    "cube_xy": [
     0.0849,
@@ -262,7 +237,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 21,
+   "episode_index": 16,
    "seed": 100021,
    "cube_xy": [
     0.1507,
@@ -273,7 +248,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 22,
+   "episode_index": 17,
    "seed": 100022,
    "cube_xy": [
     0.0712,
@@ -284,7 +259,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 23,
+   "episode_index": 18,
    "seed": 100023,
    "cube_xy": [
     0.0192,
@@ -295,7 +270,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 24,
+   "episode_index": 19,
    "seed": 100024,
    "cube_xy": [
     0.0664,
@@ -306,29 +281,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 25,
-   "seed": 100025,
-   "cube_xy": [
-    0.0389,
-    0.4166
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 26,
-   "seed": 100026,
-   "cube_xy": [
-    0.0776,
-    0.4283
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 27,
+   "episode_index": 20,
    "seed": 100027,
    "cube_xy": [
     0.0743,
@@ -339,7 +292,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 28,
+   "episode_index": 21,
    "seed": 100028,
    "cube_xy": [
     0.0846,
@@ -350,18 +303,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 29,
-   "seed": 100029,
-   "cube_xy": [
-    0.0164,
-    0.5207
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 30,
+   "episode_index": 22,
    "seed": 100030,
    "cube_xy": [
     0.0141,
@@ -372,7 +314,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 31,
+   "episode_index": 23,
    "seed": 100031,
    "cube_xy": [
     0.1593,
@@ -383,7 +325,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 32,
+   "episode_index": 24,
    "seed": 100032,
    "cube_xy": [
     0.0373,
@@ -394,7 +336,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 33,
+   "episode_index": 25,
    "seed": 100033,
    "cube_xy": [
     0.0299,
@@ -405,7 +347,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 34,
+   "episode_index": 26,
    "seed": 100034,
    "cube_xy": [
     0.1626,
@@ -416,7 +358,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 35,
+   "episode_index": 27,
    "seed": 100035,
    "cube_xy": [
     0.0069,
@@ -427,7 +369,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 36,
+   "episode_index": 28,
    "seed": 100036,
    "cube_xy": [
     0.1492,
@@ -438,29 +380,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 37,
-   "seed": 100037,
-   "cube_xy": [
-    0.0897,
-    0.4244
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 38,
-   "seed": 100038,
-   "cube_xy": [
-    0.0111,
-    0.5814
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 39,
+   "episode_index": 29,
    "seed": 100039,
    "cube_xy": [
     0.0282,
@@ -471,7 +391,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 40,
+   "episode_index": 30,
    "seed": 100041,
    "cube_xy": [
     0.1651,
@@ -482,18 +402,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 41,
-   "seed": 100042,
-   "cube_xy": [
-    0.0783,
-    0.4746
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 42,
+   "episode_index": 31,
    "seed": 100043,
    "cube_xy": [
     0.1974,
@@ -504,7 +413,18 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 43,
+   "episode_index": 32,
+   "seed": 100044,
+   "cube_xy": [
+    0.0999,
+    0.4101
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 33,
    "seed": 100045,
    "cube_xy": [
     0.1254,
@@ -515,7 +435,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 44,
+   "episode_index": 34,
    "seed": 100046,
    "cube_xy": [
     0.1973,
@@ -526,7 +446,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 45,
+   "episode_index": 35,
    "seed": 100047,
    "cube_xy": [
     0.0151,
@@ -537,7 +457,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 46,
+   "episode_index": 36,
    "seed": 100048,
    "cube_xy": [
     0.0318,
@@ -548,18 +468,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 47,
-   "seed": 100049,
-   "cube_xy": [
-    0.1585,
-    0.4906
-   ],
-   "ee_max_stage": 4,
-   "replay_max_stage": 4,
-   "replay_final_stage": 4
-  },
-  {
-   "episode_index": 48,
+   "episode_index": 37,
    "seed": 100050,
    "cube_xy": [
     0.1541,
@@ -570,7 +479,7 @@
    "replay_final_stage": 4
   },
   {
-   "episode_index": 49,
+   "episode_index": 38,
    "seed": 100051,
    "cube_xy": [
     0.014,
@@ -579,9 +488,240 @@
    "ee_max_stage": 4,
    "replay_max_stage": 4,
    "replay_final_stage": 4
+  },
+  {
+   "episode_index": 39,
+   "seed": 100052,
+   "cube_xy": [
+    0.106,
+    0.5316
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 40,
+   "seed": 100053,
+   "cube_xy": [
+    0.0821,
+    0.4558
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 41,
+   "seed": 100054,
+   "cube_xy": [
+    0.099,
+    0.5857
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 42,
+   "seed": 100056,
+   "cube_xy": [
+    0.0363,
+    0.4997
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 43,
+   "seed": 100058,
+   "cube_xy": [
+    0.1589,
+    0.4778
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 44,
+   "seed": 100061,
+   "cube_xy": [
+    0.0902,
+    0.5872
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 45,
+   "seed": 100062,
+   "cube_xy": [
+    0.1321,
+    0.4599
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 46,
+   "seed": 100065,
+   "cube_xy": [
+    0.1459,
+    0.5135
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 47,
+   "seed": 100066,
+   "cube_xy": [
+    0.0449,
+    0.5556
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 48,
+   "seed": 100067,
+   "cube_xy": [
+    0.111,
+    0.4707
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
+  },
+  {
+   "episode_index": 49,
+   "seed": 100069,
+   "cube_xy": [
+    0.1723,
+    0.5499
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 4
   }
  ],
  "skipped": [
+  {
+   "seed": 100001,
+   "cube_xy": [
+    0.1704,
+    0.5755
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100007,
+   "cube_xy": [
+    0.0472,
+    0.586
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100012,
+   "cube_xy": [
+    0.0503,
+    0.4007
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100013,
+   "cube_xy": [
+    0.1894,
+    0.4539
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 0,
+   "replay_final_stage": 0,
+   "reason": "joint replay failed"
+  },
+  {
+   "seed": 100015,
+   "cube_xy": [
+    0.0736,
+    0.5675
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100025,
+   "cube_xy": [
+    0.0389,
+    0.4166
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100026,
+   "cube_xy": [
+    0.0776,
+    0.4283
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100029,
+   "cube_xy": [
+    0.0164,
+    0.5207
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100037,
+   "cube_xy": [
+    0.0897,
+    0.4244
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100038,
+   "cube_xy": [
+    0.0111,
+    0.5814
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
   {
    "seed": 100040,
    "cube_xy": [
@@ -589,21 +729,107 @@
     0.5879
    ],
    "ee_max_stage": 4,
-   "replay_max_stage": 2,
+   "replay_max_stage": 4,
    "replay_final_stage": 0,
-   "reason": "joint replay failed"
+   "reason": "cube dropped after the handover"
   },
   {
-   "seed": 100044,
+   "seed": 100042,
    "cube_xy": [
-    0.0999,
-    0.4101
+    0.0783,
+    0.4746
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
    "replay_final_stage": 0,
    "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100049,
+   "cube_xy": [
+    0.1585,
+    0.4906
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100055,
+   "cube_xy": [
+    0.0675,
+    0.5955
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100057,
+   "cube_xy": [
+    0.1682,
+    0.5833
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100059,
+   "cube_xy": [
+    0.1807,
+    0.5699
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100060,
+   "cube_xy": [
+    0.1586,
+    0.5987
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100063,
+   "cube_xy": [
+    0.1904,
+    0.5891
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100064,
+   "cube_xy": [
+    0.1554,
+    0.5804
+   ],
+   "ee_max_stage": 4,
+   "replay_max_stage": 4,
+   "replay_final_stage": 0,
+   "reason": "cube dropped after the handover"
+  },
+  {
+   "seed": 100068,
+   "cube_xy": [
+    0.1632,
+    0.4032
+   ],
+   "ee_max_stage": 2,
+   "reason": "expert failed in end-effector sim"
   }
  ],
- "seconds": 11511.7
+ "seconds": 2068.8
 }
