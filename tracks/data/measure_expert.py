@@ -36,7 +36,7 @@ def main():
     ap.add_argument("--out", type=Path, default=Path(__file__).parent / "results" / "expert_success.json")
     args = ap.parse_args()
 
-    params = se.ExpertParams(pos_noise=0, time_noise=0, meet_noise=0) if args.no_noise else se.ExpertParams()
+    params = se.noiseless_params() if args.no_noise else se.ExpertParams()
     rows, t0 = [], time.time()
     for i in range(args.episodes):
         seed = args.seed + i

@@ -126,26 +126,74 @@ def quat_about_x(deg: float) -> np.ndarray:
     return np.array([np.cos(h), np.sin(h), 0.0, 0.0])
 
 
+def quat_mul(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    w1, x1, y1, z1 = a
+    w2, x2, y2, z2 = b
+    return np.array([w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2, w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2,
+                     w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2, w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2])
+
+
+def gripper_quat(side: str, tilt_deg: float, roll_deg: float) -> np.ndarray:
+    """Mocap orientation: first roll the gripper about its own pointing axis (world x at the
+    start pose), then tilt it down about world y."""
+    return quat_mul(side_quat(side, tilt_deg), quat_about_x(roll_deg))
+
+
 @dataclass
 class Waypoint:
     t: int
     pad: np.ndarray  # desired pad-point position (world, m)
     quat: np.ndarray  # mocap orientation command
-    grip: float  # normalised gripper command: 0 closed, 1 open
+    grip: float  # gripper command, same scale as the dataset (0 = fully closed, 1 = fully open)
 
 
 @dataclass
 class ExpertParams:
-    pos_noise: float = 0.004  # m, std of per-waypoint position jitter (approach / retreat points)
-    time_noise: int = 4  # steps, max shift of each key frame time
-    meet_noise: float = 0.02  # m, std of meeting-point jitter (x, y; half that in z)
-    right_tilt: float = 60.0  # deg, commanded downward tilt of the picking (right) gripper
-    left_roll: float = 90.0  # deg, receiving (left) gripper rolled so its fingers close top/bottom
-    meet_xyz: tuple = (0.0, 0.5, 0.25)  # nominal handover point (cube centre)
-    grasp_dz: float = 0.01  # m, pad point above cube centre at the grasp
-    left_dx: float = -0.005  # m, left pad point relative to the cube centre at the handover
+    """Defaults are set from the human demonstrations (lerobot/aloha_sim_transfer_cube_human),
+    measured with forward kinematics on their joint states: see tracks/data/compare_datasets.py.
+    Orientation commands are a few degrees beyond the measured human angles because the soft
+    weld lets the gripper sag back by about that much."""
+
+    # pick: right gripper tilted down, fingers closing sideways (human: 51 deg tilt, 4 deg roll)
+    pick_tilt: float = 58.0
+    grasp_dz: float = 0.017  # pad point above cube centre (human pad height at grasp ~0.030 m)
+    # handover: right gripper levelled out and rolled so its fingers close top/bottom
+    # (human: pointing along -x, ~75 deg roll); left horizontal, fingers sideways (human: -4 deg, ~14 deg roll)
+    meet_tilt_right: float = 0.0
+    meet_roll_right: float = 85.0
+    meet_tilt_left: float = -4.0
+    meet_roll_left: float = 0.0
+    meet_right: tuple = (-0.004, 0.497, 0.288)  # human mean right pad point at the handover
+    meet_left_dx: float = 0.006  # human pads are 1.6 cm apart, but here the cube sits deeper in the right gripper, so the left reaches further in (tested: -0.016 -> 11/20 hold, +0.006 -> 18/20)
+    meet_noise: tuple = (0.014, 0.011, 0.011)  # human std of the meeting point
+    # gripper command levels (human means: left 0.20 closed / 1.03 open, right 0.19 / 1.10)
+    grip_closed: tuple = (0.20, 0.19)  # (left, right)
+    grip_open: tuple = (1.03, 1.10)
+    grip_noise: float = 0.03
+    # timing (human means: right opens by ~72, closes 156, left closes 298, right releases 322)
+    t_right_open: int = 72
+    t_above: int = 118
+    t_down: int = 142
+    t_close: int = 156
+    t_lift: int = 185
+    t_meet: int = 262
+    t_left_near: int = 245
+    t_left_in: int = 286
+    t_left_close: int = 298
+    t_release: int = 322
+    t_away: int = 360
+    # timing spread: one shift for the whole pick and one more for the handover (human std ~30 steps)
+    pick_shift_std: float = 22.0
+    handover_shift_std: float = 15.0
+    event_jitter: int = 4
+    pos_noise: float = 0.004  # m, jitter of approach / retreat points
+    away_dz: float = 0.0  # tested 0.03 -> 35/40 hold, 0.0 -> 36/40; m, rise of the right gripper while it backs away after releasing
     gain: float = 0.15  # per-step gain of the pad-position correction
-    extra: dict = field(default_factory=dict)
+
+
+def noiseless_params() -> ExpertParams:
+    return ExpertParams(meet_noise=(0.0, 0.0, 0.0), grip_noise=0.0, pick_shift_std=0.0, handover_shift_std=0.0,
+                        event_jitter=0, pos_noise=0.0)
 
 
 class ScriptedTransferExpert:
@@ -159,52 +207,71 @@ class ScriptedTransferExpert:
         def jit(v, s=p.pos_noise):
             return np.asarray(v, float) + (rng.normal(0, s, 3) if s > 0 else 0)
 
-        def dt():
-            return int(rng.integers(-p.time_noise, p.time_noise + 1)) if p.time_noise else 0
+        def ev():
+            return int(rng.integers(-p.event_jitter, p.event_jitter + 1)) if p.event_jitter else 0
 
-        cube = np.array([cube_xyz[0], cube_xyz[1], CUBE_REST_Z])
-        meet = np.asarray(p.meet_xyz, float)
-        if p.meet_noise > 0:
-            meet = meet + rng.normal(0, p.meet_noise, 3) * [1, 1, 0.5]
-
-        rq = side_quat("right", p.right_tilt)
-        lq = quat_about_x(p.left_roll)
-        ax_r = gripper_axis("right", p.right_tilt)
-        ax_l = gripper_axis("left", 0.0)
-
-        T = {k: v + dt() for k, v in dict(above=80, down=120, close=150, lift=175, meet=260,
-                                          l_near=250, l_in=295, l_close=315, r_open=335, r_away=370).items()}
-        T["down"] = max(T["down"], T["above"] + 25)
-        T["close"] = max(T["close"], T["down"] + 20)
-        T["lift"] = max(T["lift"], T["close"] + 20)
+        # --- timing: shared shifts + per-event jitter, then enforce order and minimum gaps
+        pick = int(np.clip(rng.normal(0, p.pick_shift_std), -45, 45)) if p.pick_shift_std else 0
+        hand = int(np.clip(rng.normal(0, p.handover_shift_std), -30, 30)) if p.handover_shift_std else 0
+        T = dict(r_open=p.t_right_open + pick // 2 + ev(), above=p.t_above + pick + ev(), down=p.t_down + pick + ev(),
+                 close=p.t_close + pick + ev(), lift=p.t_lift + pick + ev(), meet=p.t_meet + pick + hand + ev(),
+                 l_near=p.t_left_near + pick + hand + ev(), l_in=p.t_left_in + pick + hand + ev(),
+                 l_close=p.t_left_close + pick + hand + ev(), release=p.t_release + pick + hand + ev(),
+                 away=p.t_away + pick + hand + ev())
+        T["r_open"] = max(T["r_open"], 30)
+        T["above"] = max(T["above"], T["r_open"] + 25)
+        T["down"] = max(T["down"], T["above"] + 18)
+        T["close"] = max(T["close"], T["down"] + 10)
+        T["lift"] = max(T["lift"], T["close"] + 22)
         T["meet"] = max(T["meet"], T["lift"] + 60)
+        T["l_near"] = max(T["l_near"], T["meet"] - 30)
         T["l_in"] = max(T["l_in"], T["meet"] + 15, T["l_near"] + 30)
-        T["l_close"] = max(T["l_close"], T["l_in"] + 15)
-        T["r_open"] = max(T["r_open"], T["l_close"] + 15)
-        T["r_away"] = max(T["r_away"], T["r_open"] + 20)
+        T["l_close"] = max(T["l_close"], T["l_in"] + 10)
+        T["release"] = max(T["release"], T["l_close"] + 18)
+        T["away"] = max(T["away"], T["release"] + 25)
+        over = T["away"] - (EPISODE_LEN - 20)  # keep at least 20 steps of holding at the end
+        if over > 0:
+            for k in ("meet", "l_near", "l_in", "l_close", "release", "away"):
+                T[k] -= over
         self.T = T
 
+        # --- geometry
+        cube = np.array([cube_xyz[0], cube_xyz[1], CUBE_REST_Z])
+        meet_r = np.asarray(p.meet_right, float) + (rng.normal(0, 1, 3) * p.meet_noise)
+        meet_l = meet_r + [p.meet_left_dx, 0, 0]
+        gl_c, gr_c = (np.asarray(p.grip_closed) + (rng.normal(0, p.grip_noise, 2) if p.grip_noise else 0))
+        gl_o, gr_o = (np.asarray(p.grip_open) + (rng.normal(0, p.grip_noise, 2) if p.grip_noise else 0))
+
+        q_pick = gripper_quat("right", p.pick_tilt, 0.0)
+        q_meet_r = gripper_quat("right", p.meet_tilt_right, p.meet_roll_right)
+        q_meet_l = gripper_quat("left", p.meet_tilt_left, p.meet_roll_left)
+        ax_pick = gripper_axis("right", p.pick_tilt)
+        ax_meet_r = gripper_axis("right", p.meet_tilt_right)
+        ax_l = gripper_axis("left", p.meet_tilt_left)
+
         grasp = cube + [0, 0, p.grasp_dz]
-        left_pad = meet + [p.left_dx, 0, 0]
-        r_away = meet - 0.10 * ax_r + [0, 0, 0.04]
+        r_start, l_start = np.asarray(start_pad_right), np.asarray(start_pad_left)
+        r_away = meet_r - 0.10 * ax_meet_r + [0, 0, p.away_dz]
         self.right = [
-            Waypoint(0, np.asarray(start_pad_right), np.asarray(start_q_right), 0.0),
-            Waypoint(T["above"], jit(grasp - 0.08 * ax_r), rq, 1.0),
-            Waypoint(T["down"], grasp, rq, 1.0),
-            Waypoint(T["close"], grasp, rq, 0.0),
-            Waypoint(T["lift"], grasp + [0, 0, 0.05], rq, 0.0),
-            Waypoint(T["meet"], meet, rq, 0.0),
-            Waypoint(T["r_open"], meet, rq, 0.0),
-            Waypoint(T["r_open"] + 12, meet, rq, 1.0),
-            Waypoint(T["r_away"], jit(r_away), rq, 1.0),
-            Waypoint(EPISODE_LEN, r_away, rq, 1.0),
+            Waypoint(0, r_start, np.asarray(start_q_right), gr_c),
+            Waypoint(T["r_open"], jit(r_start + 0.4 * (grasp - 0.08 * ax_pick - r_start)), q_pick, gr_o),
+            Waypoint(T["above"], jit(grasp - 0.08 * ax_pick), q_pick, gr_o),
+            Waypoint(T["down"], grasp, q_pick, gr_o),
+            Waypoint(T["close"], grasp, q_pick, gr_c),
+            Waypoint(T["lift"], grasp + [0, 0, 0.05], q_pick, gr_c),
+            Waypoint(T["meet"], meet_r, q_meet_r, gr_c),
+            Waypoint(T["release"], meet_r, q_meet_r, gr_c),
+            Waypoint(T["release"] + 10, meet_r, q_meet_r, gr_o),
+            Waypoint(T["away"], jit(r_away), q_meet_r, gr_o),
+            Waypoint(EPISODE_LEN, r_away, q_meet_r, gr_o),
         ]
         self.left = [
-            Waypoint(0, np.asarray(start_pad_left), np.asarray(start_q_left), 0.0),
-            Waypoint(T["l_near"], jit(left_pad - 0.09 * ax_l), lq, 1.0),
-            Waypoint(T["l_in"], left_pad, lq, 1.0),
-            Waypoint(T["l_close"], left_pad, lq, 0.0),
-            Waypoint(EPISODE_LEN, left_pad + [-0.03, 0, 0.02], lq, 0.0),
+            Waypoint(0, l_start, np.asarray(start_q_left), gl_c),
+            Waypoint(max(T["l_near"] - 60, 1), jit(l_start + 0.3 * (meet_l - 0.10 * ax_l - l_start)), q_meet_l, gl_o),
+            Waypoint(T["l_near"], jit(meet_l - 0.09 * ax_l), q_meet_l, gl_o),
+            Waypoint(T["l_in"], meet_l, q_meet_l, gl_o),
+            Waypoint(T["l_close"], meet_l, q_meet_l, gl_c),
+            Waypoint(EPISODE_LEN, meet_l + [-0.03, 0, 0.0], q_meet_l, gl_c),
         ]
 
     @staticmethod

@@ -12,11 +12,11 @@
   0.6
  ],
  "ee_sim": {
-  "successes": 100,
-  "rate": 1.0,
+  "successes": 99,
+  "rate": 0.99,
   "wilson95": [
-   0.9630051925239981,
-   0.9999999999999999
+   0.9455124752390653,
+   0.9982326134344526
   ]
  },
  "joint_replay": {
@@ -28,26 +28,56 @@
   ]
  },
  "joint_replay_still_holding_at_end": {
-  "count": 97,
-  "rate": 0.97
+  "count": 96,
+  "rate": 0.96
  },
  "expert_params": {
-  "pos_noise": 0.004,
-  "time_noise": 4,
-  "meet_noise": 0.02,
-  "right_tilt": 60.0,
-  "left_roll": 90.0,
-  "meet_xyz": [
-   0.0,
-   0.5,
-   0.25
+  "pick_tilt": 58.0,
+  "grasp_dz": 0.017,
+  "meet_tilt_right": 0.0,
+  "meet_roll_right": 85.0,
+  "meet_tilt_left": -4.0,
+  "meet_roll_left": 0.0,
+  "meet_right": [
+   -0.004,
+   0.497,
+   0.288
   ],
-  "grasp_dz": 0.01,
-  "left_dx": -0.005,
+  "meet_left_dx": 0.006,
+  "meet_noise": [
+   0.014,
+   0.011,
+   0.011
+  ],
+  "grip_closed": [
+   0.2,
+   0.19
+  ],
+  "grip_open": [
+   1.03,
+   1.1
+  ],
+  "grip_noise": 0.03,
+  "t_right_open": 72,
+  "t_above": 118,
+  "t_down": 142,
+  "t_close": 156,
+  "t_lift": 185,
+  "t_meet": 262,
+  "t_left_near": 245,
+  "t_left_in": 286,
+  "t_left_close": 298,
+  "t_release": 322,
+  "t_away": 360,
+  "pick_shift_std": 22.0,
+  "handover_shift_std": 15.0,
+  "event_jitter": 4,
+  "pos_noise": 0.004,
+  "away_dz": 0.0,
   "gain": 0.15
  },
  "machine": "Windows-11-10.0.26200-SP0",
- "seconds": 212.4,
+ "seconds": 70.8,
  "episodes_detail": [
   {
    "seed": 0,
@@ -67,7 +97,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 2,
@@ -77,7 +107,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 3,
@@ -497,7 +527,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 0
+   "replay_final_stage": 4
   },
   {
    "seed": 45,
@@ -525,7 +555,7 @@
     0.1484,
     0.5507
    ],
-   "ee_max_stage": 4,
+   "ee_max_stage": 0,
    "replay_max_stage": 4,
    "replay_final_stage": 4
   },
@@ -597,7 +627,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 55,
@@ -817,7 +847,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 0
+   "replay_final_stage": 4
   },
   {
    "seed": 77,

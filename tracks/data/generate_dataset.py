@@ -71,7 +71,7 @@ def main():
             sys.exit(f"{args.root} exists; pass --overwrite to replace it")
         shutil.rmtree(args.root)
     max_attempts = args.max_attempts or 2 * args.episodes
-    params = se.ExpertParams(pos_noise=0, time_noise=0, meet_noise=0) if args.no_noise else se.ExpertParams()
+    params = se.noiseless_params() if args.no_noise else se.ExpertParams()
 
     ds = LeRobotDataset.create(repo_id=args.repo_id, fps=50, features=FEATURES, root=args.root,
                                robot_type="aloha", use_videos=True)
