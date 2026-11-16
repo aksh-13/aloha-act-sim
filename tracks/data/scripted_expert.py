@@ -159,10 +159,10 @@ class ExpertParams:
     grasp_dz: float = 0.017  # pad point above cube centre (human pad height at grasp ~0.030 m)
     # handover: right gripper levelled out and rolled so its fingers close top/bottom
     # (human: pointing along -x, ~75 deg roll); left horizontal, fingers sideways (human: -4 deg, ~14 deg roll)
-    meet_tilt_right: float = 0.0
-    meet_roll_right: float = 85.0
-    meet_tilt_left: float = -4.0
-    meet_roll_left: float = 0.0
+    meet_tilt_right: float = -13.0  # commanded above level: the soft weld sags it ~12 deg (measured)
+    meet_roll_right: float = 80.0
+    meet_tilt_left: float = -16.0  # same sag compensation
+    meet_roll_left: float = 14.0
     meet_right: tuple = (-0.004, 0.497, 0.288)  # human mean right pad point at the handover
     meet_left_dx: float = 0.006  # human pads are 1.6 cm apart, but here the cube sits deeper in the right gripper, so the left reaches further in (tested: -0.016 -> 11/20 hold, +0.006 -> 18/20)
     meet_noise: tuple = (0.014, 0.011, 0.011)  # human std of the meeting point

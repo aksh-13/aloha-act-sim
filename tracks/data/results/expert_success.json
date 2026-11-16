@@ -28,16 +28,16 @@
   ]
  },
  "joint_replay_still_holding_at_end": {
-  "count": 96,
-  "rate": 0.96
+  "count": 81,
+  "rate": 0.81
  },
  "expert_params": {
   "pick_tilt": 58.0,
   "grasp_dz": 0.017,
-  "meet_tilt_right": 0.0,
-  "meet_roll_right": 85.0,
-  "meet_tilt_left": -4.0,
-  "meet_roll_left": 0.0,
+  "meet_tilt_right": -13.0,
+  "meet_roll_right": 80.0,
+  "meet_tilt_left": -16.0,
+  "meet_roll_left": 14.0,
   "meet_right": [
    -0.004,
    0.497,
@@ -77,7 +77,7 @@
   "gain": 0.15
  },
  "machine": "Windows-11-10.0.26200-SP0",
- "seconds": 70.8,
+ "seconds": 117.8,
  "episodes_detail": [
   {
    "seed": 0,
@@ -117,7 +117,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 4,
@@ -207,7 +207,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 13,
@@ -237,7 +237,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 16,
@@ -337,7 +337,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 26,
@@ -367,7 +367,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 0
+   "replay_final_stage": 4
   },
   {
    "seed": 29,
@@ -377,7 +377,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 30,
@@ -467,7 +467,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 39,
@@ -577,7 +577,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 50,
@@ -597,7 +597,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 52,
@@ -627,7 +627,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 0
+   "replay_final_stage": 4
   },
   {
    "seed": 55,
@@ -717,7 +717,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 64,
@@ -737,7 +737,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 66,
@@ -857,7 +857,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 78,
@@ -907,7 +907,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 83,
@@ -917,7 +917,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 84,
@@ -927,7 +927,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 85,
@@ -997,7 +997,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 92,
@@ -1037,7 +1037,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 96,
@@ -1067,7 +1067,7 @@
    ],
    "ee_max_stage": 4,
    "replay_max_stage": 4,
-   "replay_final_stage": 4
+   "replay_final_stage": 0
   },
   {
    "seed": 99,
