@@ -8,3 +8,5 @@ outputs/
 wandb/
 *.safetensors
 *.mp4
+datasets/
+tracks/data/scratch/
