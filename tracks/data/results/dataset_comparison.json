@@ -1,0 +1,392 @@
+{
+ "human": {
+  "format": {
+   "fps": 50,
+   "episodes": 50,
+   "frames": 20000,
+   "episode_length": [
+    400
+   ],
+   "cameras": [
+    "observation.images.top"
+   ],
+   "image_shape": [
+    480,
+    640,
+    3
+   ],
+   "features": [
+    "action",
+    "next.done",
+    "observation.images.top",
+    "observation.state"
+   ]
+  },
+  "style": {
+   "right_close_step": {
+    "mean": 156.06,
+    "std": 29.860616202617123
+   },
+   "left_close_step": {
+    "mean": 298.06,
+    "std": 34.81172790885279
+   },
+   "right_release_step": {
+    "mean": 321.86,
+    "std": 33.91814263782733
+   },
+   "pick_tilt_right_deg": {
+    "mean": 50.77209315495202,
+    "std": 7.5575944713985095
+   },
+   "pick_roll_right_deg": {
+    "mean": 4.461918042380267,
+    "std": 4.119507146485612
+   },
+   "grasp_height_m": {
+    "mean": 0.029936352449920444,
+    "std": 0.0076312703627595966
+   },
+   "handover_tilt_right_deg": {
+    "mean": -1.5480354320945164,
+    "std": 4.927251928519837
+   },
+   "handover_roll_right_deg": {
+    "mean": 74.57458897721384,
+    "std": 4.449893081480611
+   },
+   "handover_tilt_left_deg": {
+    "mean": -4.1899726860845075,
+    "std": 2.14716010205881
+   },
+   "handover_roll_left_deg": {
+    "mean": 14.098816724260333,
+    "std": 2.355510984224056
+   },
+   "meet_x_m": {
+    "mean": -0.004076068595724732,
+    "std": 0.014397297927822716
+   },
+   "meet_y_m": {
+    "mean": 0.49709068865080286,
+    "std": 0.010650987178535484
+   },
+   "meet_z_m": {
+    "mean": 0.28827127399951846,
+    "std": 0.011372506230104006
+   },
+   "grip_closed_left": {
+    "mean": 0.2001626741886139,
+    "std": 0.021870778246695703
+   },
+   "grip_open_left": {
+    "mean": 1.026398583650589,
+    "std": 0.05554782708677222
+   },
+   "grip_closed_right": {
+    "mean": 0.18709456086158752,
+    "std": 0.01885642154337857
+   },
+   "grip_open_right": {
+    "mean": 1.1021066641807555,
+    "std": 0.0444396246962564
+   },
+   "command_speed_rad_per_step": {
+    "mean": 0.0026386072395101763,
+    "std": 0.00021719401625119042
+   },
+   "command_jerk": {
+    "mean": 0.0019797385839437896,
+    "std": 0.00010365658382390977
+   }
+  }
+ },
+ "yardstick_human_half_vs_half": {
+  "style_mean_gap": {
+   "right_close_step": 2.920000000000016,
+   "left_close_step": 11.960000000000036,
+   "right_release_step": 9.240000000000009,
+   "pick_tilt_right_deg": 0.991438833770097,
+   "pick_roll_right_deg": 0.5106212589008639,
+   "grasp_height_m": 0.0028542932860577686,
+   "handover_tilt_right_deg": 1.5214394166797105,
+   "handover_roll_right_deg": 2.2991102437487143,
+   "handover_tilt_left_deg": 0.23054433102959226,
+   "handover_roll_left_deg": 1.0123640588942475,
+   "meet_x_m": 0.005283843839070699,
+   "meet_y_m": 0.004950650411253088,
+   "meet_z_m": 0.0008116659364088008,
+   "grip_closed_left": 0.01838952422142029,
+   "grip_open_left": 0.016537382602691553,
+   "grip_closed_right": 0.012248303890228268,
+   "grip_open_right": 0.03500890254974354,
+   "command_speed_rad_per_step": 0.00015120660579423344,
+   "command_jerk": 3.480100280239297e-05
+  },
+  "distribution_gap": {
+   "state_arm_joints": 0.026450052295550724,
+   "action_arm_joints": 0.02659869013801411,
+   "action_grippers": 0.02293225683271885
+  }
+ },
+ "scripted": {
+  "aloha_sim_transfer_cube_scripted": {
+   "format": {
+    "fps": 50,
+    "episodes": 50,
+    "frames": 20000,
+    "episode_length": [
+     400
+    ],
+    "cameras": [
+     "observation.images.top"
+    ],
+    "image_shape": [
+     480,
+     640,
+     3
+    ],
+    "features": [
+     "action",
+     "next.done",
+     "observation.images.top",
+     "observation.state"
+    ]
+   },
+   "format_matches_human": true,
+   "style": {
+    "right_close_step": {
+     "mean": 149.58,
+     "std": 24.077450031097563
+    },
+    "left_close_step": {
+     "mean": 291.38,
+     "std": 22.652055094405892
+    },
+    "right_release_step": {
+     "mean": 326.22,
+     "std": 23.113883273911373
+    },
+    "pick_tilt_right_deg": {
+     "mean": 50.264865198707504,
+     "std": 2.561887829426816
+    },
+    "pick_roll_right_deg": {
+     "mean": 3.401440805245496,
+     "std": 3.01818540605086
+    },
+    "grasp_height_m": {
+     "mean": 0.0305721307757141,
+     "std": 0.002366104348058143
+    },
+    "handover_tilt_right_deg": {
+     "mean": 6.162008702937719,
+     "std": 7.767862995387477
+    },
+    "handover_roll_right_deg": {
+     "mean": 77.56664258082914,
+     "std": 5.423720145251675
+    },
+    "handover_tilt_left_deg": {
+     "mean": 4.848241679388453,
+     "std": 1.3619097294979399
+    },
+    "handover_roll_left_deg": {
+     "mean": 12.1721453336949,
+     "std": 1.1815770516867368
+    },
+    "meet_x_m": {
+     "mean": 0.0006631444361015668,
+     "std": 0.015705808342227266
+    },
+    "meet_y_m": {
+     "mean": 0.4951636946602536,
+     "std": 0.011312863994108992
+    },
+    "meet_z_m": {
+     "mean": 0.28477622284552134,
+     "std": 0.011804422175167235
+    },
+    "grip_closed_left": {
+     "mean": 0.2032778388261795,
+     "std": 0.028629831594896918
+    },
+    "grip_open_left": {
+     "mean": 1.028313663005829,
+     "std": 0.02755110933575317
+    },
+    "grip_closed_right": {
+     "mean": 0.19485018238425256,
+     "std": 0.03189621417446882
+    },
+    "grip_open_right": {
+     "mean": 1.095615770816803,
+     "std": 0.02784613210717618
+    },
+    "command_speed_rad_per_step": {
+     "mean": 0.003998089431425746,
+     "std": 0.0003624298682450268
+    },
+    "command_jerk": {
+     "mean": 0.00035823173346993115,
+     "std": 4.608313297422356e-05
+    }
+   },
+   "style_mean_gap": {
+    "right_close_step": 6.47999999999999,
+    "left_close_step": 6.680000000000007,
+    "right_release_step": 4.360000000000014,
+    "pick_tilt_right_deg": 0.5072279562445132,
+    "pick_roll_right_deg": 1.060477237134771,
+    "grasp_height_m": 0.000635778325793656,
+    "handover_tilt_right_deg": 7.710044135032235,
+    "handover_roll_right_deg": 2.992053603615304,
+    "handover_tilt_left_deg": 9.03821436547296,
+    "handover_roll_left_deg": 1.9266713905654331,
+    "meet_x_m": 0.004739213031826299,
+    "meet_y_m": 0.0019269939905492417,
+    "meet_z_m": 0.0034950511539971196,
+    "grip_closed_left": 0.003115164637565615,
+    "grip_open_left": 0.0019150793552400458,
+    "grip_closed_right": 0.0077556215226650405,
+    "grip_open_right": 0.006490893363952477,
+    "command_speed_rad_per_step": 0.0013594821919155693,
+    "command_jerk": 0.0016215068504738584
+   },
+   "distribution_gap": {
+    "state_arm_joints": 0.15857809563855502,
+    "action_arm_joints": 0.16091577852271585,
+    "action_grippers": 0.1542179539695382
+   }
+  },
+  "aloha_sim_transfer_cube_scripted_v1": {
+   "format": {
+    "fps": 50,
+    "episodes": 50,
+    "frames": 20000,
+    "episode_length": [
+     400
+    ],
+    "cameras": [
+     "observation.images.top"
+    ],
+    "image_shape": [
+     480,
+     640,
+     3
+    ],
+    "features": [
+     "action",
+     "next.done",
+     "observation.images.top",
+     "observation.state"
+    ]
+   },
+   "format_matches_human": true,
+   "style": {
+    "right_close_step": {
+     "mean": 135.76,
+     "std": 1.9448393249829148
+    },
+    "left_close_step": {
+     "mean": 305.7,
+     "std": 2.0420577856662137
+    },
+    "right_release_step": {
+     "mean": 341.86,
+     "std": 2.473944219257985
+    },
+    "pick_tilt_right_deg": {
+     "mean": 52.81472953251348,
+     "std": 1.9251221664446767
+    },
+    "pick_roll_right_deg": {
+     "mean": 2.7778758034241635,
+     "std": 3.0987005453365883
+    },
+    "grasp_height_m": {
+     "mean": 0.02331851998521487,
+     "std": 0.0016716408177890843
+    },
+    "handover_tilt_right_deg": {
+     "mean": 44.66341925317107,
+     "std": 7.468115015310011
+    },
+    "handover_roll_right_deg": {
+     "mean": 3.890070763127854,
+     "std": 2.3110299268447116
+    },
+    "handover_tilt_left_deg": {
+     "mean": 12.319433961208658,
+     "std": 1.2884437175749377
+    },
+    "handover_roll_left_deg": {
+     "mean": 77.59732740717317,
+     "std": 1.2750039656510086
+    },
+    "meet_x_m": {
+     "mean": 0.005891261803638856,
+     "std": 0.02098373015590275
+    },
+    "meet_y_m": {
+     "mean": 0.5018805971789367,
+     "std": 0.0206874274653002
+    },
+    "meet_z_m": {
+     "mean": 0.2434725855158713,
+     "std": 0.011624123091239148
+    },
+    "grip_closed_left": {
+     "mean": 0.0,
+     "std": 0.0
+    },
+    "grip_open_left": {
+     "mean": 1.0,
+     "std": 0.0
+    },
+    "grip_closed_right": {
+     "mean": 0.0,
+     "std": 0.0
+    },
+    "grip_open_right": {
+     "mean": 1.0,
+     "std": 0.0
+    },
+    "command_speed_rad_per_step": {
+     "mean": 0.003658802731137778,
+     "std": 0.0005986870397964023
+    },
+    "command_jerk": {
+     "mean": 0.00031958535373834753,
+     "std": 4.4982473459403706e-05
+    }
+   },
+   "style_mean_gap": {
+    "right_close_step": 20.30000000000001,
+    "left_close_step": 7.639999999999986,
+    "right_release_step": 20.0,
+    "pick_tilt_right_deg": 2.0426363775614647,
+    "pick_roll_right_deg": 1.6840422389561036,
+    "grasp_height_m": 0.006617832464705573,
+    "handover_tilt_right_deg": 46.211454685265586,
+    "handover_roll_right_deg": 70.68451821408598,
+    "handover_tilt_left_deg": 16.509406647293165,
+    "handover_roll_left_deg": 63.49851068291284,
+    "meet_x_m": 0.009967330399363587,
+    "meet_y_m": 0.004789908528133879,
+    "meet_z_m": 0.04479868848364715,
+    "grip_closed_left": 0.2001626741886139,
+    "grip_open_left": 0.02639858365058889,
+    "grip_closed_right": 0.18709456086158752,
+    "grip_open_right": 0.10210666418075554,
+    "command_speed_rad_per_step": 0.0010201954916276017,
+    "command_jerk": 0.001660153230205442
+   },
+   "distribution_gap": {
+    "state_arm_joints": 0.28575166544868474,
+    "action_arm_joints": 0.2878712826762306,
+    "action_grippers": 0.17910203554735055
+   }
+  }
+ }
+}
