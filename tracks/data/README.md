@@ -8,7 +8,7 @@ Data-scaling curve, scripted expert, generated datasets, targeted repair. See PL
 |---|---|
 | C1 subsets (10 / 25 / 50) | Done: `subsets.json` (fixed seed, nested). Training runs not started (need the GPU budget, issue #2). |
 | C2 scripted expert | Done: 100/100 in the end-effector sim and 100/100 when replayed in the joint-space sim (95% Wilson interval 0.963–1.000); 97/100 still holding the cube on the last step. `results/expert_success.json`. |
-| C2 dataset | Script done and checked: a 2-episode dataset loads in `LeRobotDataset` and `lerobot-train` trains on it. Full 50-episode set: generated locally under `datasets/` (not in git). |
+| C2 dataset | Script done and checked: a 2-episode dataset loads in `LeRobotDataset` and `lerobot-train` trains on it. Full 50-episode set generated (50 kept of 52 attempts, 20,000 frames, 82 MB) and loads; it lives under `datasets/` (not in git). Regenerate with the command below; `results/aloha_sim_transfer_cube_scripted_manifest.json` lists every seed. |
 | C3, C4 | Not started: need training (C3) and Track B's robustness matrix (C4). |
 
 Checked on Windows 11, Python 3.12, LeRobot 0.7.0, MuJoCo 3.8.1, CPU only. Not checked on the Macs or the 4090.
