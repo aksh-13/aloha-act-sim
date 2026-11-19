@@ -57,6 +57,16 @@ lerobot-eval --policy.path=checkpoints/act_transfer_cube_published \
 Videos land in `<output_dir>/videos/`, metrics in `<output_dir>/eval_info.json`.
 Use `--policy.device=cuda` on the 4090.
 
+The team's own harness does the same evaluation and also writes the shared results JSON,
+runs perturbed scenes and labels failures. Use it for every reported number
+(details in [tracks/simulation/README.md](tracks/simulation/README.md)):
+
+```bash
+python -m tracks.simulation.evaluate --checkpoint checkpoints/act_transfer_cube_published --variant nominal --episodes 100
+```
+
+Published checkpoint, 100 episodes on the M4: 82% success, 95% Wilson interval 73–88%.
+
 ## Train
 
 ```bash
