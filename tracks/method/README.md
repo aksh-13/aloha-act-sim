@@ -8,7 +8,11 @@ ACT training, chunk-length ablation, no-chunking baseline, inference-delay stres
 **Reference recipe:** LeRobot 0.7.0's ACT defaults, unchanged. The 83.0% target (500 episodes,
 80,000 steps) comes from the LeRobot model card
 (`lerobot/act_aloha_sim_transfer_cube_human`), so we reproduce *that* recipe, not the paper's.
-The full resolved config is pinned in [configs/a1_reproduce.json](configs/a1_reproduce.json).
+The full resolved config is pinned in [configs/a1_reproduce.json](configs/a1_reproduce.json),
+and `train_a1.sh` launches from it (`--config_path`), overriding only the device, output folder
+and, for smoke tests, steps. The one change from LeRobot's defaults is `env_eval_freq: 0`: no
+simulator rollouts during training (the default runs 50 episodes every 20k steps); checkpoints
+are evaluated separately instead.
 
 ### LeRobot defaults vs the paper
 
@@ -41,9 +45,11 @@ source .venv/bin/activate
 STEPS=200 SAVE_FREQ=200 OUT=outputs/smoke/a1 tracks/method/train_a1.sh mps
 ```
 
-Smoke result (18 Nov 2026, Apple M4, MPS): 200 steps, update time 1.13 s/step (loss 7.38,
-L1 0.62, KL 0.68); checkpoint saved and loaded by `lerobot-eval`, 0/2 successes (expected
-this early). This checks the plumbing, not the policy.
+Smoke results (18 Nov 2026, Apple M4, MPS). These check the plumbing, not the policy:
+- 200 steps with flags: update time 1.13 s/step (loss 7.38, L1 0.62, KL 0.68); checkpoint loaded
+  by `lerobot-eval`, 0/2 successes (expected this early).
+- Launched from the pinned JSON (run from `tracks/method/`): 100 steps, then `RESUME=1 STEPS=200`
+  continued from the step-100 checkpoint to 200. Rerunning with an existing `OUT` is refused.
 
 Full run on the 4090 server, in Docker:
 
@@ -54,9 +60,22 @@ NAME=a1-main tracks/method/docker_run.sh -d tracks/method/train_a1.sh cuda
 docker logs -f a1-main
 ```
 
-Checkpoints land in `checkpoints/a1-reproduce-default/checkpoints/<step>/pretrained_model/` on the
-server's disk (mounted, never in git). The first log line at step 200 reports the per-step update
-time (`updt_s`); multiply by 80,000 for issue #2's estimate.
+If the container dies, resume from the last checkpoint (same command plus `RESUME=1`):
+
+```bash
+NAME=a1-main tracks/method/docker_run.sh -d env RESUME=1 tracks/method/train_a1.sh cuda
+```
+
+Notes:
+- Checkpoints land in `checkpoints/a1-reproduce-default/checkpoints/<step>/pretrained_model/` on
+  the server's disk (mounted, never in git).
+- `tracks/` is mounted into the container, so script and config edits apply immediately.
+  Changes to `requirements.txt` or the `Dockerfile` need `docker build` again.
+- A stopped container with the same `NAME` is removed before a new one starts; a running one is
+  never touched.
+- **Timing for #2:** use wall-clock time between two log lines after warm-up (for example steps
+  1,000 and 2,000; LeRobot logs every 200 steps), divided by the steps between them. Don't use the
+  step-200 `updt_s` alone: it leaves out data loading and checkpoint saves, and includes warm-up.
 
 ### Evaluation protocol (A1, and proposed for every Track A evaluation)
 

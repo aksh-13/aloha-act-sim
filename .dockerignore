@@ -4,6 +4,6 @@ checkpoints/
 outputs/
 wandb/
 **/__pycache__/
-*.mp4
-*.safetensors
-.DS_Store
+**/*.mp4
+**/*.safetensors
+**/.DS_Store
